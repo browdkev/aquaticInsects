@@ -3,14 +3,11 @@ from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 
-from azure.cognitiveservices.vision.customvision.prediction import CustomVisionPredictionClient
-from msrest.authentication import ApiKeyCredentials
 
 UPLOAD_FOLDER = 'C:/Users/kevst/Documents/temp'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
-prediction_key = "d066eee92f694255a041c5633f5929c7"
-prediction_resource_id = "/subscriptions/f7100ba6-4602-4e10-9b4a-2717a466db77/resourceGroups/epiic-ml-rg/providers/Microsoft.CognitiveServices/accounts/customvisionmacroi-Prediction"
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
