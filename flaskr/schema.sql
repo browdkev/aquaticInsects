@@ -21,5 +21,6 @@ CREATE TABLE img (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   author_id INTEGER NOT NULL,
   photo BLOB NOT NULL,
+  classified INTEGER NOT NULL,
   FOREIGN KEY (author_id) REFERENCES user (id)
 );

@@ -33,11 +33,22 @@ def upload_form():
             if file and allowed_file(file.filename):
                 temp = file.read()
                 db.execute(
-                    'INSERT INTO img (author_id, photo)'
-                    ' VALUES (?, ?)',
-                    (g.user['id'], temp)
+                    'INSERT INTO img (author_id, photo, classified)'
+                    ' VALUES (?, ?, ?)',
+                    (g.user['id'], temp, 0)
                 )
                 db.commit()
                 
         flash('File(s) successfully uploaded')
     return render_template('photo/upload.html')
+
+@bp.route('/index')
+def index():
+    db = get_db()
+    photos = db.execute(
+        'SELECT photo'
+        ' FROM img i JOIN user u ON i.author_id = u.id'
+    ).fetchall()
+    
+    
+    return render_template('photo/index.html', photos=photos)

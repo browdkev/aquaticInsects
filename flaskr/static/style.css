@@ -1,6 +1,6 @@
-html { font-family: sans-serif; background: rgb(238, 238, 238); padding: 1rem; }
+html { font-family: sans-serif; background: rgb(238, 238, 238); padding: 1rem; background-image: url("https://images.squarespace-cdn.com/content/v1/5c08491db10598331390f84a/1585600575753-L55A2DAYT9ROMIFQY7U4/YERC_Logo2.png");}
 body { max-width: 960px; margin: 0 auto; background: white; }
-h1 { font-family: serif; color: #37a84f; margin: 1rem 0; }
+h1 { font-family: serif; color: #0c7222; margin: 1rem 0; }
 a { color: #377ba8; }
 hr { border: none; border-top: 1px solid lightgray; }
 nav { background: lightgray; display: flex; align-items: center; padding: 0 0.5rem; }
