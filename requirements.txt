@@ -1,0 +1,3 @@
+azure-cosmosdb-table
+azure-storage-blob
+Flask==2.0.1

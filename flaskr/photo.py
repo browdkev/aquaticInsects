@@ -1,8 +1,17 @@
 import os
+import datetime as dt
+import pprint as pp
+
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 from werkzeug.exceptions import abort
+from werkzeug.utils import secure_filename
+
+from azure.storage.blob import BlobServiceClient,ContentSettings
+blob_connect = os.environ['AzureWebJobsStorage']
+blob_service_client = BlobServiceClient.from_connection_string(blob_connect)
+
 
 from flaskr.auth import login_required
 from flaskr.db import get_db
@@ -13,32 +22,54 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-#@bp.route('/')
-#def upload_form():
-#    return render_template('photo/upload.html')
+def upload_file_to_storage(file):
+    container='data-ingress-api-upload'
+    source='aquatic-insects'
+    username=secure_filename(g.user["username"])
+
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        content_settings = ContentSettings(content_type=file.content_type)
+        file.save(filename)
+        blobspec="%s/%s/%s" % (source,username,filename)
+        blob_client = blob_service_client.get_blob_client(container = container, blob = blobspec)
+        with open(filename, "rb") as data:
+            blob_client.upload_blob(data, overwrite=True, content_settings=content_settings)
+            print("Upload Done for:",blobspec)
+
+def image_classification(file):
+    results = {
+        "username": secure_filename(g.user["username"]),
+        "filename" : secure_filename(file.filename),
+        "collection_time" : dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "insects" : [
+            {"name": "Stonefly","count":3},
+            {"name": "Mayfly","count":2}
+        ]
+    }
+
+    return results
+
+def post_results(results):
+    pp.pprint(results)
 
 
 @bp.route('/', methods=('GET', 'POST'))
 def upload_form():
     if request.method == 'POST':
-        db = get_db()
 
         if 'files[]' not in request.files:
             flash('No file part')
             return redirect(request.url)
 
         files = request.files.getlist('files[]')
-        #TODO Change to db upload
         for file in files:
-            if file and allowed_file(file.filename):
-                temp = file.read()
-                db.execute(
-                    'INSERT INTO img (author_id, photo, classified)'
-                    ' VALUES (?, ?, ?)',
-                    (g.user['id'], temp, 0)
-                )
-                db.commit()
-                
+            upload_file_to_storage(file)
+            results=image_classification(file)
+            post_results(results)
+            os.remove(secure_filename(file.filename))
+
+
         flash('File(s) successfully uploaded')
     return render_template('photo/upload.html')
 
@@ -52,3 +83,4 @@ def index():
     
     
     return render_template('photo/index.html', photos=photos)
+
