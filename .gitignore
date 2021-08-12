@@ -1,0 +1,7 @@
+.venv/
+venv/
+
+.azure/
+.idea/
+__pycache__/
+*.pyc

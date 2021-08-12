@@ -1,7 +1,5 @@
 import os,sys
 
-sys.path.append('.')
-
 from flask import Flask
 
 # create and configure the app
