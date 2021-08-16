@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'header.html' %}
 
 {% block header %}
   <h1>{% block title %}Photo Upload{% endblock %}</h1>
@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<form method="post" action="/" enctype="multipart/form-data">
+<form method="post" action="/upload" enctype="multipart/form-data">
     <label for="title">Select Photos for Upload</label>
     <input type="file" name="files[]" multiple="true" autocomplete="off" required>
 	<input type="submit" value="Submit">

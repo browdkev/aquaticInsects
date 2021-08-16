@@ -1,10 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'header.html' %}
 
 {% block header %}
   <h1>{% block title %}Register{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
+<h1>To register Please enter the following information:</h1>
   <form method="post">
     <label for="username">Username</label>
     <input name="username" id="username" required>

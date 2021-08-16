@@ -1,0 +1,18 @@
+{% extends "header.html" %} {% block content %}
+
+<h1>YERC Aquatic Insert Portal</h1>
+<p>
+  Application to upload images for Aquatic Insect Classifications
+</p>
+{% if g.user %}
+<p>
+  Hello {{ g.user['username'] }}!
+</p>
+{% else %}
+<p>
+  Welcome!  Please login or register for a new account
+</p>
+{% endif %}
+
+
+{% endblock content %}

@@ -1,0 +1,73 @@
+.error {
+  color: red;
+}
+
+.info {
+  color: green;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: #3d3f42;
+  flex-wrap: wrap;
+  height: 100px;
+}
+
+.header {
+  background-color: #3d3f42;
+  overflow: hidden;
+}
+
+.logo {
+  float: left;
+}
+
+.nav {
+  margin-top: 20px;
+  float: right;
+  width: 80%;
+}
+
+.nav a {
+  float: right;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.nav a:hover {
+  background-color: #7cb342;
+  border-radius: 25px;
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  line-height: 1.5em;
+  text-transform: none;
+  color: #000;
+}
+
+.content {
+  padding: 20px;
+}
+
+.content:last-child { margin-bottom: 0; }
+.content form { margin: 1em 0; display: flex; flex-direction: column; }
+.content label { font-weight: bold; margin-bottom: 0.5em; }
+.content input, .content textarea { margin-bottom: 1em; }
+.content textarea { min-height: 12em; resize: vertical; }
+input.danger { color: #cc2f2e; }
+input[type=submit] { align-self: start; min-width: 10em; }
+nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }
+nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
+
+

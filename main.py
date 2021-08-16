@@ -1,12 +1,16 @@
 import os,sys
 
-from flask import Flask
+sys.path.append('.')
+
+from flask import (
+    Flask, Blueprint, flash, g, redirect, render_template, request, url_for
+)
 
 # create and configure the app
 app = Flask('AquaticInsects', instance_relative_config=True)
 app.config.from_mapping(
     SECRET_KEY='dev',
-    DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+    DATABASE=os.path.join(app.instance_path, 'sqlite'),
     )
 
 print("CONFIG",app.config)
@@ -17,10 +21,16 @@ try:
 except OSError:
     pass
 
+@app.route("/")
+@app.route("/home")
+def home():
+    return render_template("home.html")
+
 # a simple page that says hello
 @app.route('/hello')
 def hello():
     return 'Hello, World!'
+
 
 import flaskr.db as db
 db.init_app(app)
@@ -30,7 +40,7 @@ app.register_blueprint(auth.bp)
 
 import flaskr.photo as photo
 app.register_blueprint(photo.bp)
-app.add_url_rule('/', endpoint='upload_form')
+app.add_url_rule('/upload', endpoint='upload',view_func='upload')
 
 
 if __name__ == "__main__":

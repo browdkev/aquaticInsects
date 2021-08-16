@@ -2,9 +2,7 @@ import os
 import datetime as dt
 import pprint as pp
 
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
-)
+from flask import ( Blueprint, flash, g, redirect, render_template, request, url_for )
 from werkzeug.exceptions import abort
 from werkzeug.utils import secure_filename
 
@@ -54,8 +52,8 @@ def post_results(results):
     pp.pprint(results)
 
 
-@bp.route('/', methods=('GET', 'POST'))
-def upload_form():
+@bp.route('/upload', methods=('GET', 'POST'))
+def upload():
     if request.method == 'POST':
 
         if 'files[]' not in request.files:
